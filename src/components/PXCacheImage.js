@@ -1,51 +1,54 @@
 import React, { Component } from 'react';
-import { View, Image, InteractionManager } from 'react-native';
+import { View, Animated } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { globalStyleVariables } from '../styles';
 
 class PXCacheImage extends Component {
   constructor(props) {
     super(props);
-    const { width, height } = props;
+    let { width } = props;
+    if (!width) width = globalStyleVariables.WINDOW_WIDTH;
+    const height = 0;
     this.state = {
       width,
       height,
+      imageScaleValue: new Animated.Value(0),
     };
   }
 
-  componentDidMount() {
+  onImageLoad = event => {
     const { uri, onFoundImageSize } = this.props;
-    InteractionManager.runAfterInteractions(() => {
-      Image.getSizeWithHeaders(
-        uri,
-        {
-          referer: 'http://www.pixiv.net',
-        },
-        (width, height) => {
-          this.setState({
-            width,
-            height,
-            uri,
-          });
-          onFoundImageSize(width, height, uri);
-        },
-      );
+    const { width, height } = event.nativeEvent;
+    this.setState({
+      width,
+      height,
     });
+    onFoundImageSize(width, height, uri);
+  }
+
+  onImageLoadEnd = () => {
+    Animated.timing(this.state.imageScaleValue, {
+      toValue: 1,
+      duration: 200,
+      delay: 5,
+      useNativeDriver: true,
+    }).start()
   }
 
   render() {
     const { uri, style, ...otherProps } = this.props;
     const { width, height } = this.state;
-    return width && height ? (
-      <View
+    return (
+      <Animated.View
         style={{
           width: globalStyleVariables.WINDOW_WIDTH,
-          flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
+          opacity: this.state.imageScaleValue
           // backgroundColor: '#fff',
         }}
       >
-        <Image
+        <FastImage
           source={{
             uri,
             headers: {
@@ -62,10 +65,12 @@ class PXCacheImage extends Component {
             },
             style,
           ]}
+          onLoad={this.onImageLoad}
+          onLoadEnd={this.onImageLoadEnd}
           {...otherProps}
         />
-      </View>
-    ) : null;
+      </Animated.View>
+    );
   }
 }
 

@@ -89,6 +89,8 @@ class PXViewPager extends Component {
         pagingEnabled
         debug={false}
         maxToRenderPerBatch={LIST_WINDOW_SIZE}
+        removeClippedSubviews={true}
+        updateCellsBatchingPeriod={100}
         getItemLayout={(data, i) => ({
           length: globalStyleVariables.WINDOW_WIDTH,
           offset: globalStyleVariables.WINDOW_WIDTH * i,

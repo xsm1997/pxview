@@ -219,8 +219,8 @@ class IllustDetailContent extends Component {
     const { onPressImage, onLongPressImage } = this.props;
     return (
       <PXCacheImageTouchable
-        key={item.image_urls.medium}
-        uri={item.image_urls.medium}
+        key={item.image_urls.original}
+        uri={item.image_urls.original}
         initWidth={globalStyleVariables.WINDOW_HEIGHT}
         initHeight={200}
         style={styles.multiImageContainer}
@@ -252,7 +252,7 @@ class IllustDetailContent extends Component {
     }
     return (
       <PXCacheImageTouchable
-        uri={item.image_urls.medium}
+        uri={item.image_urls.large}
         initWidth={
           item.width > globalStyleVariables.WINDOW_WIDTH
             ? globalStyleVariables.WINDOW_WIDTH
@@ -317,11 +317,12 @@ class IllustDetailContent extends Component {
               data={item.meta_pages}
               keyExtractor={(page) => page.image_urls.large}
               renderItem={this.renderItem}
-              removeClippedSubviews={false}
+              removeClippedSubviews={true}
               ListFooterComponent={this.renderFooter}
               onScroll={this.handleOnScroll}
               onViewableItemsChanged={this.handleOnViewableItemsChanged}
               scrollEventThrottle={16}
+              windowSize={3}
               bounces={false}
             />
             {(isInitState || isScrolling) && imagePageNumber && (
