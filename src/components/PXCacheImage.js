@@ -23,7 +23,7 @@ class PXCacheImage extends Component {
       width,
       height,
     });
-    onFoundImageSize(width, height, uri);
+    onFoundImageSize && onFoundImageSize(width, height, uri);
   }
 
   onImageLoadEnd = () => {

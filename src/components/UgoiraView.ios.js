@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import FastImage from 'react-native-fast-image'
+import { View, Image } from 'react-native';
 import { globalStyleVariables } from '../styles';
 
 class UgoiraView extends Component {
@@ -75,7 +74,7 @@ class UgoiraView extends Component {
           backgroundColor: globalStyleVariables.BACKGROUND_COLOR,
         }}
       >
-        <FastImage
+        <Image
           source={{
             uri: images[imageIndex].uri,
           }}

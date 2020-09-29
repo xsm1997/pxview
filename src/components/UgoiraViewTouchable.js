@@ -183,7 +183,7 @@ class UgoiraViewTouchable extends Component {
             />
           ) : (
             <PXCacheImage
-              uri={item.image_urls.medium}
+              uri={item.image_urls.large}
               width={width}
               height={height}
               style={styles.image}
