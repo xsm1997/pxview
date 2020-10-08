@@ -6,9 +6,11 @@ import { globalStyleVariables } from '../styles';
 class PXCacheImage extends Component {
   constructor(props) {
     super(props);
-    let { width } = props;
-    if (!width) width = globalStyleVariables.WINDOW_WIDTH;
-    const height = 0;
+    let { width, height } = props;
+    if (!width) {
+      width = globalStyleVariables.WINDOW_WIDTH;
+      height = 0;
+    }
     this.state = {
       width,
       height,

@@ -315,14 +315,12 @@ class IllustDetailContent extends Component {
           <View>
             <FlatList
               data={item.meta_pages}
-              keyExtractor={(page) => page.image_urls.large}
+              keyExtractor={(page) => page.image_urls.original}
               renderItem={this.renderItem}
               removeClippedSubviews={true}
               ListFooterComponent={this.renderFooter}
               onScroll={this.handleOnScroll}
               onViewableItemsChanged={this.handleOnViewableItemsChanged}
-              scrollEventThrottle={16}
-              windowSize={3}
               bounces={false}
             />
             {(isInitState || isScrolling) && imagePageNumber && (
